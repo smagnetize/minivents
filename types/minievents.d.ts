@@ -1,7 +1,7 @@
 /**
  * Interface for objects with event handling capabilities
  */
-interface EventEmitter {
+interface Events {
     /**
      * Listen to events.
      *
@@ -35,11 +35,11 @@ interface EventEmitter {
  * 
  * @param target Object to add event handling to (optional - defaults to this)
  */
-interface EventsInterface {
-    <T extends object = {}>(target?: T): T & EventEmitter;
-    new (): EventEmitter;
+interface EventsConstructor {
+    <T extends object = {}>(target?: T): T & Events;
+    new (): Events;
 }
 
-declare const Events: EventsInterface;
+declare const Events: EventsConstructor;
 
 export = Events;
