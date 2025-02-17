@@ -29,10 +29,19 @@ interface EventEmitter {
 }
 
 /**
- * Add event handling capabilities to an object.
- *
+ * Add event handling capabilities to an object or create a new event emitter.
+ * Can be used both as a function and as a constructor.
+ * 
  * @param target Object to add event handling to (optional - defaults to this)
  */
 declare function Events<T extends object = {}>(target?: T): T & EventEmitter;
+
+declare namespace Events {
+    interface EventsConstructor {
+        new (): EventEmitter;
+    }
+}
+
+interface Events extends Events.EventsConstructor {}
 
 export = Events;
