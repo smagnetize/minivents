@@ -1,35 +1,38 @@
 /**
- * Add support of events to class.
+ * Interface for objects with event handling capabilities
  */
-export class Events {
+interface EventEmitter {
     /**
      * Listen to events.
      *
-     * @param type
-     * @param callback
-     * @param context
+     * @param type Event type
+     * @param func Callback function
+     * @param ctx Context for the callback
      */
-    on(type: string, callback: Function, context: any[])
+    on(type: string, func: Function, ctx?: any): this;
 
     /**
-     * Stop listening to events or specific callback.
+     * Stop listening to event / specific callback.
      *
-     * @param type
-     * @param callback
+     * @param type Event type (optional - if not provided, removes all events)
+     * @param func Specific callback to remove (optional)
      */
-    off(type?: string, callback?: Function)
+    off(type?: string, func?: Function): this;
 
     /**
-     * Send event. Callbacks will be triggered.
+     * Send event, callbacks will be triggered.
      *
-     * @param type
+     * @param type Event type
+     * @param args Additional arguments to pass to callbacks
      */
-    emit(type: string)
+    emit(type: string, ...args: any[]): this;
 }
 
 /**
- * Add support of events to object.
+ * Add event handling capabilities to an object.
  *
- * @param object
+ * @param target Object to add event handling to (optional - defaults to this)
  */
-export function Events<T>(object: T): T & Events;
+declare function Events<T extends object = {}>(target?: T): T & EventEmitter;
+
+export = Events;
